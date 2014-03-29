@@ -5,38 +5,42 @@ var jsFiles = [
   'js/**/*.js'
 ];
 
+var htmlFiles = {
+  'build/layout.html': 'html/layout.html'
+};
+
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    clean : ['html/build/'],
+    clean : ['build/'],
 
     concat: {
       dev: {
         src: jsFiles,
-        dest: 'html/build/scripts.min.js'
+        dest: 'build/scripts.min.js'
       },
       release: {
         src: jsFiles,
-        dest: 'html/build/scripts.concat.js'
+        dest: 'build/scripts.concat.js'
       }
     },
 
     ngmin: {
       release: {
-        src: 'html/build/scripts.concat.js',
-        dest: 'html/build/scripts.ngmin.js'
+        src: 'build/scripts.concat.js',
+        dest: 'build/scripts.ngmin.js'
       }
     },
 
     uglify : {
       release: {
-        src: 'html/build/scripts.ngmin.js',
-        dest: 'html/build/scripts.min.js'
+        src: 'build/scripts.ngmin.js',
+        dest: 'build/scripts.min.js'
       },
       all: {
         src: 'lib/modernizr.js',
-        dest: 'html/build/modernizr.min.js'
+        dest: 'build/modernizr.min.js'
       }
     },
 
@@ -46,7 +50,7 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {
-          'html/build/styles.css': 'css/styles.scss'
+          'build/styles.css': 'css/styles.scss'
         }
       }
     },
@@ -54,14 +58,29 @@ module.exports = function(grunt) {
     csso: {
       all: {
         files: {
-          'html/build/styles.min.css': ['html/build/styles.css']
+          'build/styles.min.css': ['build/styles.css']
         }
+      }
+    },
+
+    htmlmin: {
+      dev: {
+        options: {},
+        files: htmlFiles
+      },
+      release: {
+        options: {
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeComments: true
+        },
+        files: htmlFiles
       }
     },
 
     watch: {
       dev: {
-        files: ['js/**/*', 'css/**/*'],
+        files: ['js/**/*', 'css/**/*', 'html/**/*'],
         tasks: ['dev'],
         options: {
           debounceDelay: 250,
@@ -82,9 +101,10 @@ module.exports = function(grunt) {
 
   // Other.
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
-  var devTasks = ['clean', 'concat:dev', 'uglify:all', 'sass:all', 'csso:all', 'watch'];
-  var releaseTasks = ['clean', 'concat:release', 'ngmin:release', 'uglify:release', 'uglify:all', 'sass:all', 'csso:all'];
+  var devTasks = ['clean', 'concat:dev', 'uglify:all', 'sass:all', 'csso:all', 'htmlmin:dev', 'watch'];
+  var releaseTasks = ['clean', 'concat:release', 'ngmin:release', 'uglify:release', 'uglify:all', 'sass:all', 'htmlmin:release', 'csso:all'];
 
   grunt.registerTask('dev', devTasks);
   grunt.registerTask('release', releaseTasks);
