@@ -9,7 +9,10 @@
     "grunt-contrib-clean": "*",
     "grunt-contrib-concat": "*",
     "grunt-ngmin": "0.0.3",
-    "grunt-contrib-uglify": "*"
+    "grunt-contrib-uglify": "*",
+
+    "grunt-contrib-sass": "*",
+    "grunt-csso": "*"
   },
   "license": "MIT"
 }

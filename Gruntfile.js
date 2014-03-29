@@ -38,16 +38,40 @@ module.exports = function(grunt) {
         src: 'lib/modernizr.js',
         dest: 'html/build/modernizr.min.js'
       }
+    },
+
+    sass: {
+      all: {
+        options: {
+          style: 'compressed'
+        },
+        files: {
+          'html/build/styles.css': 'css/styles.scss'
+        }
+      }
+    },
+
+    csso: {
+      all: {
+        files: {
+          'html/build/styles.min.css': ['html/build/styles.css']
+        }
+      }
     }
   });
 
+  // JavaScript.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  var devTasks = ['clean', 'concat:dev', 'uglify:all'];
-  var releaseTasks = ['clean', 'concat:release', 'ngmin:release', 'uglify:release', 'uglify:all'];
+  // CSS.
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-csso');
+
+  var devTasks = ['clean', 'concat:dev', 'uglify:all', 'sass:all', 'csso:all'];
+  var releaseTasks = ['clean', 'concat:release', 'ngmin:release', 'uglify:release', 'uglify:all', 'sass:all', 'csso:all'];
 
   grunt.registerTask('dev', devTasks);
   grunt.registerTask('release', releaseTasks);
