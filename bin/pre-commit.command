@@ -5,7 +5,7 @@
 # If you absolutely must commit without testing,
 # use: git commit --no-verify
 
-filenames=$(git diff --name-only HEAD)
+filenames=($(git diff --name-only HEAD))
 
 # JSHint.
 for i in "${filenames[@]}"

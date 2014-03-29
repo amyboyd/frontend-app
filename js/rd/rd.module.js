@@ -1,3 +1,1 @@
-angular.module('rd', []);
-
-console.log('rd module');
+angular.module('rd', ['rd.layout']);
