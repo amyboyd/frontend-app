@@ -57,7 +57,17 @@ module.exports = function(grunt) {
           'html/build/styles.min.css': ['html/build/styles.css']
         }
       }
-    }
+    },
+
+    watch: {
+      dev: {
+        files: ['js/**/*', 'css/**/*'],
+        tasks: ['dev'],
+        options: {
+          debounceDelay: 250,
+        },
+      }
+    },
   });
 
   // JavaScript.
@@ -70,7 +80,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-csso');
 
-  var devTasks = ['clean', 'concat:dev', 'uglify:all', 'sass:all', 'csso:all'];
+  // Other.
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  var devTasks = ['clean', 'concat:dev', 'uglify:all', 'sass:all', 'csso:all', 'watch'];
   var releaseTasks = ['clean', 'concat:release', 'ngmin:release', 'uglify:release', 'uglify:all', 'sass:all', 'csso:all'];
 
   grunt.registerTask('dev', devTasks);

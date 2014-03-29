@@ -12,7 +12,9 @@
     "grunt-contrib-uglify": "*",
 
     "grunt-contrib-sass": "*",
-    "grunt-csso": "*"
+    "grunt-csso": "*",
+
+    "grunt-contrib-watch": "~0.5.3"
   },
   "license": "MIT"
 }
