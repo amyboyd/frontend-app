@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.1",
+
+    "jshint": "~2.4.3",
+
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-ngmin": "0.0.3",
+    "grunt-contrib-uglify": "*"
+  },
+  "license": "MIT"
+}
